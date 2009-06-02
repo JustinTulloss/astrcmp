@@ -8,7 +8,6 @@ Python unicode objects.
 
 Usage
 =====
-
 To test:
  * run ``./run-test`` from the source directory.
 
@@ -19,6 +18,8 @@ To use in your program:
  * Copy the astrcmp.h file somewhere where you can include it.
  * Include astrcmp.h in your source.
  * Remember to link to astrcmp if you are using the dynamic library.
+
+Look at test.c to see an example of how the function behaves.
 
 License
 =======
