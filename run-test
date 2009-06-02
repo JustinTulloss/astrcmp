@@ -1,0 +1,4 @@
+#!/bin/sh -v
+scons -c
+scons
+LD_LIBRARY_PATH="." ./test
