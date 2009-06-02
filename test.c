@@ -18,6 +18,7 @@
 
 #include "astrcmp.h"
 #include <stdio.h>
+#include <string.h>
 
 char *strings[] = {
     "Hello",
@@ -30,21 +31,26 @@ char *strings[] = {
 };
 
 
-void compare_and_print(int index1, int index2) {
-    float res1 = LevenshteinDistance(strings[index1], sizeof(strings[index1]),
-                                     strings[index2], sizeof(strings[index2]));
+void compare_and_print(int index1, int index2, float correct) {
+    float result = LevenshteinDistance(strings[index1], strlen(strings[index1]),
+                                     strings[index2], strlen(strings[index2]));
     printf("Similarity between \"%s\" and \"%s\" is %f\n", 
-        strings[index1], strings[index2], res1);
+        strings[index1], strings[index2], result);
+    if (correct != result) {
+        fprintf(stderr, "FAILURE: Result %f should have been %f\n", 
+            result, correct);
+        exit(1);
+    }
 }
 
 int main(int argc, char* argv[]) {
-    compare_and_print(0, 0);
-    compare_and_print(0, 1);
-    compare_and_print(0, 2);
-    compare_and_print(0, 3);
-    compare_and_print(0, 4);
-    compare_and_print(0, 5);
-    compare_and_print(5, 6);
-    compare_and_print(6, 5);
+    compare_and_print(0, 0, 1.0);
+    compare_and_print(0, 1, .199999988);
+    compare_and_print(0, 2, 0.0);
+    compare_and_print(0, 3, .800000011);
+    compare_and_print(0, 4, 0.0);
+    compare_and_print(0, 5, 0.0);
+    compare_and_print(5, 6, .444444417);
+    compare_and_print(6, 5, .444444417);
 }
 
