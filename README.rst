@@ -5,12 +5,13 @@ This is a simple library for getting the `Levenshtein Distance`_ in C.
 It was adapted from the Picard project, where it was implemented using
 Python unicode objects.
 
-_`Levenshtein Distance`:http://en.wikipedia.org/wiki/Levenshtein_distance 
+_Levenshtein Distance:http://en.wikipedia.org/wiki/Levenshtein_distance 
 
 Usage
 =====
 
-To test, run ./run-test from the source directory.
+To test:
+run ./run-test from the source directory.
 
 To use in your program:
  * Compile:
