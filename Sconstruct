@@ -1,2 +1,3 @@
 SharedLibrary('astrcmp', ['astrcmp.c'])
+StaticLibrary('astrcmp', ['astrcmp.c'])
 Program('test', ['test.c'], LIBS=['astrcmp'], LIBPATH=".")
