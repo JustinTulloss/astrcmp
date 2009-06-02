@@ -45,11 +45,12 @@ void compare_and_print(int index1, int index2, float correct) {
 
 int main(int argc, char* argv[]) {
     compare_and_print(0, 0, 1.0);
-    compare_and_print(0, 1, .199999988);
+    compare_and_print(1, 1, 1.0);
     compare_and_print(0, 2, 0.0);
-    compare_and_print(0, 3, .800000011);
     compare_and_print(0, 4, 0.0);
     compare_and_print(0, 5, 0.0);
+    compare_and_print(0, 1, .199999988);
+    compare_and_print(0, 3, .800000011);
     compare_and_print(5, 6, .444444417);
     compare_and_print(6, 5, .444444417);
 }
