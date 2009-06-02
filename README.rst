@@ -5,7 +5,7 @@ This is a simple library for getting the `Levenshtein Distance`_ in C.
 It was adapted from the Picard project, where it was implemented using
 Python unicode objects.
 
-_Levenshtein Distance:http://en.wikipedia.org/wiki/Levenshtein_distance 
+_`Levenshtein Distance`: http://en.wikipedia.org/wiki/Levenshtein_distance 
 
 Usage
 =====
