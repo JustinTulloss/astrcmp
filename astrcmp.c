@@ -50,8 +50,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MIN(a, b) a < b ? a : b;
-#define MAX(a, b) a > b ? a : b;
+#define MIN(a, b) (a < b ? a : b)
+#define MAX(a, b) (a > b ? a : b)
 
 /***
  * Compute Levenshtein distance
@@ -59,41 +59,43 @@
 
 #define MATRIX(a, b) matrix[(b) * (len1 + 1) + (a)]
 
-float LevenshteinDistance(char *s1, char *s2)
+float LevenshteinDistance(char *s1, int len1, 
+                          char *s2, int len2)
 {
+    int index1, index2;
     /* Step 1 */
     /* Check string lengths */
-    int len1 = s1.length();
-    int len2 = s2.length();
-
-    if (s1.empty() || s2.empty()) {
+    if (!(len1 && len2)) {
         return 0.0f;
     }
 
     /* Step 2 */
     /* Allocate matrix for algorithm and fill it with default values */
 
-    int *matrix = new int[(len1 + 1) * (len2 + 1)];
+    int *matrix = (int *) malloc(sizeof(int)*(len1+1)*(len2+1));
+    if (matrix == NULL) {
+        return 0; //FIXME: Uh oh, what should we actually return?
+    }
 
-    for (int index1 = 0; index1 <= len1; index1++)
+    for (index1 = 0; index1 <= len1; index1++) {
         MATRIX(index1, 0) = index1;
+    }
 
-    for (int index2 = 0; index2 <= len2; index2++)
+    for (index2 = 0; index2 <= len2; index2++) {
         MATRIX(0, index2) = index2;
+    }
 
     /* Step 3 */
     /* Loop through first string */
 
-    for (int index1 = 1; index1 <= len1; index1++)
-    {
-        string *s1_current = s1[index1 - 1];
+    for (index1 = 1; index1 <= len1; index1++) {
+        char s1_current = s1[index1 - 1];
 
         /* Step 4 */
         /* Loop through second string */
 
-        for (int index2 = 1; index2 <= len2; index2++)
-        {
-            string *s2_current = s2[index2 - 1];
+        for (index2 = 1; index2 <= len2; index2++) {
+            char s2_current = s2[index2 - 1];
 
             /* Step 5 */
             /* Calculate cost of this iteration
@@ -115,15 +117,17 @@ float LevenshteinDistance(char *s1, char *s2)
                Enhanced Dynamic ProgramMINg ASM Algorithm"
                (http://berghel.net/publications/asm/asm.php) */
 
-            if (index1 > 2 && index2 > 2)
-            {
+            if (index1 > 2 && index2 > 2) {
                 int trans = MATRIX(index1 - 2, index2 - 2) + 1;
-                if (s1[index1 - 2] != s2_current)
+                if (s1[index1 - 2] != s2_current) {
                     trans++;
-                if (s1_current != s2[index2 - 2])
+                }
+                if (s1_current != s2[index2 - 2]) {
                     trans++;
-                if (cell > trans)
+                }
+                if (cell > trans) {
                     cell = trans;
+                }
             }
 
             MATRIX(index1, index2) = cell;
@@ -137,7 +141,7 @@ float LevenshteinDistance(char *s1, char *s2)
     float result = ((float)1 - 
         ((float)MATRIX(len1, len2) / (float)MAX(len1, len2)));
 
-    delete [] matrix;
+    free(matrix);
 
     return result;
 }
